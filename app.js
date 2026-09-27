@@ -17,6 +17,9 @@ app.set('views', path.join(__dirname, 'app_server', 'views'));
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
 app.set('view engine', 'hbs');
 
+// Bring in the database
+require('./app_server/models/db');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
