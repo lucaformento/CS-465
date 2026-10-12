@@ -1,0 +1,18 @@
+<!-- <h1>{{ title }}</h1> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/images/logo.png" alt="Travlr Getaways" height="40" class="me-2">
+      {{ title }}
+    </a>
+    <ul class="navbar-nav ms-auto flex-row gap-3">
+      <li class="nav-item"><a class="nav-link" routerLink="/">Trips</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/add-trip">Add Trip</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- <app-trip-listing></app-trip-listing> -->
+  <router-outlet></router-outlet>
+</div>

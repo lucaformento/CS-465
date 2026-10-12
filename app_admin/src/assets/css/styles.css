@@ -1,0 +1,9 @@
+/* Global styles for the Travlr Getaways admin SPA */
+body {
+  background-color: #f4f7f6;
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
