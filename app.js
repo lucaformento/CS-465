@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
+var passport = require('passport');
+
+// Load environment variables (JWT_SECRET) from .env
+require('dotenv').config();
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
@@ -21,11 +25,15 @@ app.set('view engine', 'hbs');
 // Bring in the database
 require('./app_api/models/db');
 
+// Configure the Passport local strategy
+require('./app_api/config/passport');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -43,6 +51,14 @@ app.use('/api', (req, res, next) => {
 });
 
 app.use('/api', apiRouter);
+
+// Catch unauthorized errors and return 401
+app.use((err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    return res.status(401).json({ message: err.name + ': ' + err.message });
+  }
+  next(err);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

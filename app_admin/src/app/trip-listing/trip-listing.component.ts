@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TripCardComponent } from '../trip-card/trip-card.component';
 import { Trip } from '../models/trip';
 import { TripDataService } from '../services/trip-data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-trip-listing',
@@ -22,7 +23,8 @@ export class TripListingComponent implements OnInit {
 
   constructor(
     private tripDataService: TripDataService,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService
   ) {
     console.log('trip-listing constructor');
   }
@@ -54,6 +56,10 @@ export class TripListingComponent implements OnInit {
   public onTripDeleted(code: string): void {
     this.trips = this.trips.filter(t => t.code !== code);
     this.message = 'There are ' + this.trips.length + ' trips available.';
+  }
+
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
   }
 
   ngOnInit(): void {

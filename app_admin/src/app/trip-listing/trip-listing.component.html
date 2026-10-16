@@ -1,6 +1,7 @@
 <!-- <pre>{{ trips | json }}</pre> -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <button (click)="addTrip()" class="btn btn-info">Add Trip</button>
+  <button *ngIf="isLoggedIn()" (click)="addTrip()" class="btn btn-info">Add Trip</button>
+  <span *ngIf="!isLoggedIn()"></span>
   <span class="text-muted">{{ message }}</span>
 </div>
 

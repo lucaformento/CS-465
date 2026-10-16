@@ -57,4 +57,13 @@ describe('TripDataService', () => {
     expect(req.request.method).toBe('DELETE');
     req.flush({ message: 'Trip deleted: CLAR210621' });
   });
+
+  it('POST sends credentials to /login', () => {
+    const user: any = { name: 'Joe Smith', email: 'jsmith9867@example.com' };
+    service.login(user, 'secret').subscribe(res => expect(res.token).toBe('abc'));
+    const req = http.expectOne('http://localhost:3000/api/login');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body.password).toBe('secret');
+    req.flush({ token: 'abc' });
+  });
 });
